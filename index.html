@@ -1,207 +1,327 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cronograma de Aplicações - Dark Moderno</title>
-<style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 30px 15px;
-        color: var(--text-color);
-        line-height: 1.6;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Aplicações</title>
+    <link rel="icon" type="image/png" href="seringa.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            /* ------------------------------------------- */
+            /* NOVAS PROPRIEDADES PARA IMAGEM DE FUNDO */
+            /* ------------------------------------------- */
+            background-image: url('fundo1.jpg'); /* <-- SUBSTITUA PELA URL OU CAMINHO DA IMAGEM */
+            background-size: cover; /* Ajusta a imagem para cobrir toda a área */
+            background-repeat: no-repeat; /* Evita que a imagem se repita */
+            background-attachment: fixed; /* Fixa a imagem no lugar ao rolar */
+            background-color: #1a1a1a; /* Cor de fallback se a imagem falhar/transparente */
+            /* ------------------------------------------- */
+
+            color: #f0f0f0; /* Texto claro */
+        }
         
-        /* Configuração do Background Estático */
-        background-color: #1a1a1a;
-        background-image: url('fundo1.jpg'); /* TROCAR PELA URL/CAMINHO DA SUA IMAGEM */
-        background-size: cover;
-        background-attachment: fixed; /* O segredo do efeito estático */
-        background-position: center;
-    }
-  h1, h2 {
-    text-align: center;
-    color: #ffffff;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
-  }
+        h2 {
+            color: #007bff; 
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            border-radius: 4px; 
+            
+            /* Melhoria de contraste para o texto H2 sobre imagem */
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            
+            /* Melhoria de contraste para a tabela sobre imagem */
+            background-color: rgba(40, 40, 40, 0.9); /* Fundo escuro semi-transparente */
+            
+            box-shadow: 0 4px 8px rgba(0,0,0,0.8); /* Sombra mais forte */
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #444; 
+            text-align: center;
+        }
+        
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        /* Ajustes para arredondar cantos do cabeçalho da tabela */
+        table thead tr:first-child th:first-child {
+            border-top-left-radius: 8px;
+        }
+        table thead tr:first-child th:last-child {
+            border-top-right-radius: 8px;
+        }
 
-  table {
-    width: 90%;       /* diminui largura horizontal */
-    max-width: 800px; /* largura máxima para telas grandes */
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 20px;
-    background: rgba(30, 30, 30, 0.85); /* efeito glass */
-    backdrop-filter: blur(5px);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-  }
-
-  th, td {
-    padding: 12px 15px;
-    text-align: center;
-  }
-
-  th {
-    background: #1976d2;
-    color: #ffffff;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  tbody tr {
-    transition: background 0.3s;
-  }
-
-  tbody tr:nth-child(even) {
-    background: rgba(42, 42, 42, 0.8);
-  }
-
-  tbody tr:hover {
-    background: rgba(51, 51, 51, 0.9);
-  }
-
-  select {
-    padding: 6px 10px;
-    border-radius: 8px;
-    border: 1px solid #555;
-    background: #2c2c2c;
-    color: #e0e0e0;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  select:hover {
-    background: #3a3a3a;
-  }
-
-  .aplicado { background: #4caf50; color: #ffffff; font-weight: 600; }
-  .nao-aplicado { background: #e53935; color: #ffffff; font-weight: 600; }
-  .feito { background: #4caf50; color: #ffffff; font-weight: 600; }
-  .nao-feito { background: #ff9800; color: #ffffff; font-weight: 600; }
-
-  @media (max-width: 768px) {
-    table, thead, tbody, th, td, tr { display: block; }
-    th { position: sticky; top: 0; z-index: 2; }
-    td { text-align: right; padding-left: 50%; position: relative; border-bottom: 1px solid #333; }
-    td::before { content: attr(data-label); position: absolute; left: 15px; width: 45%; font-weight: bold; text-align: left; }
-  }
-</style>
+        tr:nth-child(even) {
+            background-color: #333; 
+        }
+        
+        tr:hover {
+            background-color: #555; /* Hover mais claro no fundo escuro/transparente */
+        }
+        
+        .status-cell {
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+            transition: background-color 0.3s; 
+            border-radius: 4px; 
+        }
+        
+        /* Cores de status */
+        .status-aplicado {
+            background-color: #28a745; /* Verde */
+            color: white; 
+        }
+        
+        .status-nao-aplicado {
+            background-color: #dc3545; /* Vermelho */
+            color: white; 
+        }
+        
+        .status-feito {
+            background-color: #28a745; /* Verde */
+            color: white; 
+        }
+        
+        .status-nao-feito {
+            background-color: #ffc107; /* Amarelo/Laranja */
+            color: #333; 
+        }
+    </style>
 </head>
 <body>
-<h1>Cronograma de Aplicações</h1>
 
-<table id="cronograma">
-  <thead>
-    <tr>
-      <th>Semana</th>
-      <th>Data (Segunda)</th>
-      <th>Status (Segunda)</th>
-      <th>Data (Quinta)</th>
-      <th>Status (Quinta)</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+    <h2>Cronograma Aplicações (10 Semanas)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Semana</th>
+                <th>Data</th>
+                <th>Dia da Semana</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Dia da Semana</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="cronograma-body">
+            </tbody>
+    </table>
 
-<h2>Exame</h2>
+    <h2>Exame</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Dia da Semana</th>
+                <th>Tipo/Observação</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="exame-body">
+            </tbody>
+    </table>
 
-<table id="exame">
-  <thead>
-    <tr>
-      <th>Data</th>
-      <th>Tipo de Exame</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>11/11/2025</td>
-      <td>Testosterona Total</td>
-      <td>
-        <select class="status-exame" data-id="exame1">
-          <option value="NÃO FEITO">NÃO FEITO</option>
-          <option value="FEITO">FEITO</option>
-        </select>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    <script>
+        const CRONOGRAMA_APLICACOES = [
+            // Semana 1 (Dose Única)
+            { id: 'app-w1-d1', semana: 1, data1: '27/Set', dia1: 'Sáb (1,0ml)', data2: '', dia2: '', tipo: 'aplicacao' },
+            
+            // Semanas 2 a 10 (Doses Duplas)
+            { id: 'app-w2-d1', semana: 2, data1: '06/Out', dia1: 'Seg', data2: '09/Out', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w2-d2', semana: 2, data1: '06/Out', dia1: 'Seg', data2: '09/Out', dia2: 'Qui', hidden: true }, // Elemento "hidden" para Status 2
+            
+            { id: 'app-w3-d1', semana: 3, data1: '13/Out', dia1: 'Seg', data2: '16/Out', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w3-d2', semana: 3, data1: '13/Out', dia1: 'Seg', data2: '16/Out', dia2: 'Qui', hidden: true },
+            
+            { id: 'app-w4-d1', semana: 4, data1: '20/Out', dia1: 'Seg', data2: '23/Out', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w4-d2', semana: 4, data1: '20/Out', dia1: 'Seg', data2: '23/Out', dia2: 'Qui', hidden: true },
+            
+            { id: 'app-w5-d1', semana: 5, data1: '27/Out', dia1: 'Seg', data2: '30/Out', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w5-d2', semana: 5, data1: '27/Out', dia1: 'Seg', data2: '30/Out', dia2: 'Qui', hidden: true },
+            
+            { id: 'app-w6-d1', semana: 6, data1: '03/Nov', dia1: 'Seg', data2: '06/Nov', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w6-d2', semana: 6, data1: '03/Nov', dia1: 'Seg', data2: '06/Nov', dia2: 'Qui', hidden: true },
+            
+            { id: 'app-w7-d1', semana: 7, data1: '10/Nov', dia1: 'Seg', data2: '13/Nov', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w7-d2', semana: 7, data1: '10/Nov', dia1: 'Seg', data2: '13/Nov', dia2: 'Qui', hidden: true },
+            
+            { id: 'app-w8-d1', semana: 8, data1: '17/Nov', dia1: 'Seg', data2: '20/Nov', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w8-d2', semana: 8, data1: '17/Nov', dia1: 'Seg', data2: '20/Nov', dia2: 'Qui', hidden: true },
+            
+            { id: 'app-w9-d1', semana: 9, data1: '24/Nov', dia1: 'Seg', data2: '27/Nov', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w9-d2', semana: 9, data1: '24/Nov', dia1: 'Seg', data2: '27/Nov', dia2: 'Qui', hidden: true },
+            
+            { id: 'app-w10-d1', semana: 10, data1: '01/Dez', dia1: 'Seg', data2: '04/Dez', dia2: 'Qui', tipo: 'aplicacao' },
+            { id: 'app-w10-d2', semana: 10, data1: '01/Dez', dia1: 'Seg', data2: '04/Dez', dia2: 'Qui', hidden: true }
+        ];
 
-<script>
-const cronogramaData = [
-  { semana: 1, seg: "27 de Setembro de 2025 (Sábado)", qui: null },
-  { semana: 2, seg: "06 de Outubro de 2025", qui: "09 de Outubro de 2025" },
-  { semana: 3, seg: "13 de Outubro de 2025", qui: "16 de Outubro de 2025" },
-  { semana: 4, seg: "20 de Outubro de 2025", qui: "23 de Outubro de 2025" },
-  { semana: 5, seg: "27 de Outubro de 2025", qui: "30 de Outubro de 2025" },
-  { semana: 6, seg: "03 de Novembro de 2025", qui: "06 de Novembro de 2025" },
-  { semana: 7, seg: "10 de Novembro de 2025", qui: "13 de Novembro de 2025" },
-  { semana: 8, seg: "17 de Novembro de 2025", qui: "20 de Novembro de 2025" },
-  { semana: 9, seg: "24 de Novembro de 2025", qui: "27 de Novembro de 2025" },
-  { semana: 10, seg: "01 de Dezembro de 2025", qui: "04 de Dezembro de 2025" }
-];
+        const DADO_EXAME = {
+            id: 'exame-1',
+            data: '11/Nov',
+            dia: 'Terça-feira',
+            observacao: 'Testosterona Total',
+            tipo: 'exame'
+        };
 
-const tbody = document.querySelector("#cronograma tbody");
+        const STATUS_APL = {
+            APLICADO: 'APLICADO',
+            NAO_APLICADO: 'NÃO APLICADO'
+        };
 
-function renderTabela() {
-  tbody.innerHTML = "";
-  cronogramaData.forEach((semana) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${semana.semana}</td>
-      <td>${semana.seg || ""}</td>
-      <td>
-        ${semana.seg ? `<select class="status" data-id="sem${semana.semana}-seg">
-          <option value="NÃO APLICADO">NÃO APLICADO</option>
-          <option value="APLICADO">APLICADO</option>
-        </select>` : ""}
-      </td>
-      <td>${semana.qui || ""}</td>
-      <td>
-        ${semana.qui ? `<select class="status" data-id="sem${semana.semana}-qui">
-          <option value="NÃO APLICADO">NÃO APLICADO</option>
-          <option value="APLICADO">APLICADO</option>
-        </select>` : ""}
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
+        const STATUS_EX = {
+            FEITO: 'FEITO',
+            NAO_FEITO: 'NÃO FEITO'
+        };
 
-  document.querySelectorAll(".status").forEach(select => {
-    const saved = localStorage.getItem(select.dataset.id);
-    if (saved) select.value = saved;
-    colorirStatus(select);
-    select.addEventListener("change", () => {
-      localStorage.setItem(select.dataset.id, select.value);
-      colorirStatus(select);
-    });
-  });
+        // Função principal para renderizar as tabelas
+        function renderTables() {
+            const cronogramaBody = document.getElementById('cronograma-body');
+            cronogramaBody.innerHTML = ''; 
 
-  document.querySelectorAll(".status-exame").forEach(select => {
-    const saved = localStorage.getItem(select.dataset.id);
-    if (saved) select.value = saved;
-    colorirStatus(select);
-    select.addEventListener("change", () => {
-      localStorage.setItem(select.dataset.id, select.value);
-      colorirStatus(select);
-    });
-  });
-}
+            CRONOGRAMA_APLICACOES.forEach(item => {
+                if (item.hidden !== true) {
+                    const row = cronogramaBody.insertRow();
+                    
+                    row.insertCell().textContent = item.semana;
 
-function colorirStatus(select) {
-  select.className = "";
-  if (select.value === "APLICADO") select.classList.add("aplicado");
-  if (select.value === "NÃO APLICADO") select.classList.add("nao-aplicado");
-  if (select.value === "FEITO") select.classList.add("feito");
-  if (select.value === "NÃO FEITO") select.classList.add("nao-feito");
-}
+                    // Aplicação 1
+                    row.insertCell().textContent = item.data1;
+                    row.insertCell().textContent = item.dia1;
+                    const statusCell1 = row.insertCell();
+                    statusCell1.classList.add('status-cell');
+                    statusCell1.dataset.itemId = item.id; 
+                    statusCell1.dataset.statusType = 'aplicacao';
+                    statusCell1.onclick = toggleStatus;
+                    updateStatusCell(statusCell1, item.id, STATUS_APL.NAO_APLICADO, STATUS_APL);
+                    
+                    // Aplicação 2 (se existir)
+                    if (item.data2) {
+                        row.insertCell().textContent = item.data2;
+                        row.insertCell().textContent = item.dia2;
+                        const statusCell2 = row.insertCell();
+                        statusCell2.classList.add('status-cell');
+                        const item2 = CRONOGRAMA_APLICACOES.find(i => i.semana === item.semana && i.hidden === true);
+                        if (item2) {
+                            statusCell2.dataset.itemId = item2.id;
+                            statusCell2.dataset.statusType = 'aplicacao';
+                            statusCell2.onclick = toggleStatus;
+                            updateStatusCell(statusCell2, item2.id, STATUS_APL.NAO_APLICADO, STATUS_APL);
+                        } else {
+                             statusCell2.textContent = '';
+                        }
+                    } else {
+                        // Preenche células vazias para Semana 1
+                        row.insertCell().textContent = '-';
+                        row.insertCell().textContent = '-';
+                        row.insertCell().textContent = '-';
+                    }
+                }
+            });
 
-renderTabela();
-</script>
+            // Renderiza Tabela de Exame
+            const exameBody = document.getElementById('exame-body');
+            exameBody.innerHTML = '';
+            const rowExame = exameBody.insertRow();
+            
+            rowExame.insertCell().textContent = DADO_EXAME.data;
+            rowExame.insertCell().textContent = DADO_EXAME.dia;
+            rowExame.insertCell().textContent = DADO_EXAME.observacao;
+            
+            const statusCellExame = rowExame.insertCell();
+            statusCellExame.classList.add('status-cell');
+            statusCellExame.dataset.itemId = DADO_EXAME.id;
+            statusCellExame.dataset.statusType = 'exame';
+            statusCellExame.onclick = toggleStatus;
+            updateStatusCell(statusCellExame, DADO_EXAME.id, STATUS_EX.NAO_FEITO, STATUS_EX);
+        }
+
+        // Função para carregar o status salvo ou usar o status padrão
+        function getSavedStatus(id, defaultStatus) {
+            return localStorage.getItem(id) || defaultStatus;
+        }
+
+        // Função para atualizar o texto e classe CSS da célula de status
+        function updateStatusCell(cell, id, defaultStatus, statusEnum) {
+            const currentStatus = getSavedStatus(id, defaultStatus);
+            cell.textContent = currentStatus;
+            
+            // Remove classes existentes
+            cell.classList.remove('status-aplicado', 'status-nao-aplicado', 'status-feito', 'status-nao-feito');
+
+            // Adiciona a classe correta
+            if (cell.dataset.statusType === 'aplicacao') {
+                if (currentStatus === statusEnum.APLICADO) {
+                    cell.classList.add('status-aplicado');
+                } else {
+                    cell.classList.add('status-nao-aplicado');
+                }
+            } else if (cell.dataset.statusType === 'exame') {
+                if (currentStatus === statusEnum.FEITO) {
+                    cell.classList.add('status-feito');
+                } else {
+                    cell.classList.add('status-nao-feito');
+                }
+            }
+        }
+
+        // Função para alternar o status ao clicar
+        function toggleStatus(event) {
+            const cell = event.currentTarget;
+            const itemId = cell.dataset.itemId;
+            const statusType = cell.dataset.statusType;
+            let currentStatus = localStorage.getItem(itemId);
+            let nextStatus;
+            let statusEnum;
+
+            if (statusType === 'aplicacao') {
+                statusEnum = STATUS_APL;
+                if (currentStatus === statusEnum.APLICADO) {
+                    nextStatus = statusEnum.NAO_APLICADO;
+                } else {
+                    nextStatus = statusEnum.APLICADO;
+                }
+            } else if (statusType === 'exame') {
+                statusEnum = STATUS_EX;
+                if (currentStatus === statusEnum.FEITO) {
+                    nextStatus = statusEnum.NAO_FEITO;
+                } else {
+                    nextStatus = statusEnum.FEITO;
+                }
+            } else {
+                return; 
+            }
+
+            // Salva o novo status
+            localStorage.setItem(itemId, nextStatus);
+
+            // Atualiza a célula
+            updateStatusCell(cell, itemId, nextStatus, statusEnum);
+        }
+
+        // Inicializa a aplicação ao carregar a página
+        document.addEventListener('DOMContentLoaded', renderTables);
+    </script>
+
 </body>
 </html>
