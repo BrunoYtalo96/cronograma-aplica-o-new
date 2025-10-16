@@ -4,22 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cronograma de Aplicações - Dark Moderno</title>
-<link rel="icon" type="image/png" href="seringa.png">
-
-  <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #e0e0e0;
-    margin: 20px;
-    
-   /* Configuração do Background Estático */
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 30px 15px;
+        color: var(--text-color);
+        line-height: 1.6;
+        
+        /* Configuração do Background Estático */
         background-color: #1a1a1a;
         background-image: url('fundo1.jpg'); /* TROCAR PELA URL/CAMINHO DA SUA IMAGEM */
         background-size: cover;
         background-attachment: fixed; /* O segredo do efeito estático */
         background-position: center;
-  }
-
+    }
   h1, h2 {
     text-align: center;
     color: #ffffff;
@@ -28,7 +27,8 @@
   }
 
   table {
-    width: 100%;
+    width: 90%;       /* diminui largura horizontal */
+    max-width: 800px; /* largura máxima para telas grandes */
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
