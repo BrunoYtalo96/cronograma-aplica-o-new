@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronograma de Aplicações - Dark Moderno</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e0e0e0;
+    margin: 20px;
+    /* IMAGEM DE FUNDO ESTÁTICA */
+    background: url('https://images.unsplash.com/photo-1606761568499-6f2c8e37e4c3?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  h1, h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background: rgba(30, 30, 30, 0.85); /* efeito glass */
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  }
+
+  th, td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+
+  th {
+    background: #1976d2;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  tbody tr {
+    transition: background 0.3s;
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba(42, 42, 42, 0.8);
+  }
+
+  tbody tr:hover {
+    background: rgba(51, 51, 51, 0.9);
+  }
+
+  select {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background: #2c2c2c;
+    color: #e0e0e0;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  select:hover {
+    background: #3a3a3a;
+  }
+
+  .aplicado { background: #4caf50; color: #ffffff; font-weight: 600; }
+  .nao-aplicado { background: #e53935; color: #ffffff; font-weight: 600; }
+  .feito { background: #4caf50; color: #ffffff; font-weight: 600; }
+  .nao-feito { background: #ff9800; color: #ffffff; font-weight: 600; }
+
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    th { position: sticky; top: 0; z-index: 2; }
+    td { text-align: right; padding-left: 50%; position: relative; border-bottom: 1px solid #333; }
+    td::before { content: attr(data-label); position: absolute; left: 15px; width: 45%; font-weight: bold; text-align: left; }
+  }
+</style>
+</head>
+<body>
+<h1>Cronograma de Aplicações</h1>
+
+<table id="cronograma">
+  <thead>
+    <tr>
+      <th>Semana</th>
+      <th>Data (Segunda)</th>
+      <th>Status (Segunda)</th>
+      <th>Data (Quinta)</th>
+      <th>Status (Quinta)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h2>Exame</h2>
+
+<table id="exame">
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Tipo de Exame</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>11/11/2025</td>
+      <td>Testosterona Total</td>
+      <td>
+        <select class="status-exame" data-id="exame1">
+          <option value="NÃO FEITO">NÃO FEITO</option>
+          <option value="FEITO">FEITO</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+const cronogramaData = [
+  { semana: 1, seg: "27 de Setembro de 2025 (Sábado)", qui: null },
+  { semana: 2, seg: "06 de Outubro de 2025", qui: "09 de Outubro de 2025" },
+  { semana: 3, seg: "13 de Outubro de 2025", qui: "16 de Outubro de 2025" },
+  { semana: 4, seg: "20 de Outubro de 2025", qui: "23 de Outubro de 2025" },
+  { semana: 5, seg: "27 de Outubro de 2025", qui: "30 de Outubro de 2025" },
+  { semana: 6, seg: "03 de Novembro de 2025", qui: "06 de Novembro de 2025" },
+  { semana: 7, seg: "10 de Novembro de 2025", qui: "13 de Novembro de 2025" },
+  { semana: 8, seg: "17 de Novembro de 2025", qui: "20 de Novembro de 2025" },
+  { semana: 9, seg: "24 de Novembro de 2025", qui: "27 de Novembro de 2025" },
+  { semana: 10, seg: "01 de Dezembro de 2025", qui: "04 de Dezembro de 2025" }
+];
+
+const tbody = document.querySelector("#cronograma tbody");
+
+function renderTabela() {
+  tbody.innerHTML = "";
+  cronogramaData.forEach((semana) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${semana.semana}</td>
+      <td>${semana.seg || ""}</td>
+      <td>
+        ${semana.seg ? `<select class="status" data-id="sem${semana.semana}-seg">
+          <option value="NÃO APLICADO">NÃO APLICADO</option>
+          <option value="APLICADO">APLICADO</option>
+        </select>` : ""}
+      </td>
+      <td>${semana.qui || ""}</td>
+      <td>
+        ${semana.qui ? `<select class="status" data-id="sem${semana.semana}-qui">
+          <option value="NÃO APLICADO">NÃO APLICADO</option>
+          <option value="APLICADO">APLICADO</option>
+        </select>` : ""}
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.querySelectorAll(".status").forEach(select => {
+    const saved = localStorage.getItem(select.dataset.id);
+    if (saved) select.value = saved;
+    colorirStatus(select);
+    select.addEventListener("change", () => {
+      localStorage.setItem(select.dataset.id, select.value);
+      colorirStatus(select);
+    });
+  });
+
+  document.querySelectorAll(".status-exame").forEach(select => {
+    const saved = localStorage.getItem(select.dataset.id);
+    if (saved) select.value = saved;
+    colorirStatus(select);
+    select.addEventListener("change", () => {
+      localStorage.setItem(select.dataset.id, select.value);
+      colorirStatus(select);
+    });
+  });
+}
+
+function colorirStatus(select) {
+  select.className = "";
+  if (select.value === "APLICADO") select.classList.add("aplicado");
+  if (select.value === "NÃO APLICADO") select.classList.add("nao-aplicado");
+  if (select.value === "FEITO") select.classList.add("feito");
+  if (select.value === "NÃO FEITO") select.classList.add("nao-feito");
+}
+
+renderTabela();
+</script>
+</body>
+</html>
